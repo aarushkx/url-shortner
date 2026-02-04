@@ -11,10 +11,16 @@ export const generateShortUrl = async (req, res) => {
             });
         }
 
-        const existingUrl = await Url.findOne({ url });
+        const existingUrl = await Url.findOne({ url }).lean();
         if (existingUrl) {
+            const shortUrl = `${process.env.BASE_URL}/${existingUrl.slug}`;
+
             return res.status(409).json({
                 message: "URL already exists",
+                data: {
+                    ...existingUrl,
+                    shortUrl,
+                },
             });
         }
 
@@ -41,9 +47,14 @@ export const generateShortUrl = async (req, res) => {
 
         const newUrl = await Url.create({ url, slug: generatedSlug });
         if (newUrl) {
+            const shortUrl = `${process.env.BASE_URL}/${newUrl.slug}`;
+
             return res.status(201).json({
                 message: "Short URL generated successfully",
-                data: newUrl,
+                data: {
+                    ...newUrl,
+                    shortUrl,
+                },
             });
         }
 
@@ -68,10 +79,6 @@ export const getShortUrl = async (req, res) => {
             { new: true },
         );
         if (urlInDb) {
-            // return res.status(200).redirect(urlInDb.url, 301).json({
-            //     message: "Short URL fetched successfully",
-            //     data: urlInDb,
-            // });
             return res.redirect(urlInDb.url);
         }
         return res.status(404).json({
@@ -104,7 +111,7 @@ export const getUrlAnalytics = async (req, res) => {
             message: "Invalid URL",
         });
     } catch (error) {
-        console.log("ERROR: GET generateShortUrl", error);
+        console.log("ERROR: GET getUrlAnalytics", error);
         return res.status(500).json({
             message: "Internal Server Error",
         });

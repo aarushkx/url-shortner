@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>URL Shortener</title>
+    </head>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+
+    <body>
+        <table width="100%" height="100%">
+            <tr>
+                <td align="center" valign="middle">
+                    <h2>URL Shortener</h2>
+
+                    <div>
+                        <input id="urlInput" placeholder="Enter URL" />
+                    </div>
+                    <br />
+                    <div>
+                        <input
+                            id="slugInput"
+                            placeholder="Custom slug (optional)"
+                        />
+                    </div>
+                    <br />
+                    <div>
+                        <button onclick="generate()">Generate</button>
+                    </div>
+
+                    <p id="result"></p>
+                    <br />
+
+                    <canvas
+                        id="analyticsChart"
+                        width="400"
+                        height="200"
+                    ></canvas>
+
+                    <p id="analytics"></p>
+                </td>
+            </tr>
+        </table>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
