@@ -2,4 +2,4 @@
 
 - [ ] Remove hardcoded API_BASE in script.js
 - [ x ] Add analytics
-- [ ] Add rate limiting
+- [ x ] Add rate limiting
